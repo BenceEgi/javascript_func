@@ -3,5 +3,22 @@ table,thead,tbody,tr,td,th{
     border-collapse: collapse;
     padding: 10px;
     text-align: center;
+}
+
+
+tbody>tr{
     background-color: whitesmoke;
+}
+
+tbody tr:nth-child(2n){
+    background-color: lightgoldenrodyellow;
+}
+
+thead{
+    background-color: lightblue;
+}
+
+tr td:hover{
+    background-color: aquamarine;
+    cursor: pointer;
 }
