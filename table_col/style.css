@@ -5,9 +5,13 @@ table,thead,tbody,tr,td,th{
     text-align: center;
 }
 
+thead~tbody>tr{
+    background-color: rgb(219, 219, 219);
+}
 
 tbody>tr{
     background-color: whitesmoke;
+    font-style: italic;
 }
 
 tbody tr:nth-child(2n){
@@ -18,7 +22,7 @@ thead{
     background-color: lightblue;
 }
 
-tr td:hover{
+tbody tr:hover{
     background-color: aquamarine;
     cursor: pointer;
 }
