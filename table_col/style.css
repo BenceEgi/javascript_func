@@ -1,0 +1,7 @@
+table,thead,tbody,tr,td,th{
+    border: black 1px solid;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: center;
+    background-color: whitesmoke;
+}
