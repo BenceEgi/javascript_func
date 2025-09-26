@@ -1,0 +1,14 @@
+table,thead,tbody,tr,td,th{
+    border: 1px dotted red;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 5px;
+}
+
+tr td:last-child{
+    background-color: lightblue;
+}
+
+tr td:nth-last-child(3){
+    background-color: gray;
+}
