@@ -6,9 +6,40 @@ table,thead,tbody,tr,td,th{
 }
 
 tr td:last-child{
-    background-color: lightblue;
+    background-color: rgb(196, 3, 13);
 }
 
 tr td:nth-last-child(3){
-    background-color: gray;
+    background-color: rgb(1, 124, 63);
+}
+
+#gyakorlas{
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    background-color: lightblue;
+}
+
+button+p{
+    color: darkcyan;
+}
+
+button:has(+p){
+    background-color: lightcoral;
+    border: 0.5px solid black;
+    border-radius: 5px;
+}
+
+button:not(:has(+p)){
+    background-color: bisque;
+    border: 0.5px solid black;
+    border-radius: 5px;
+}
+
+#gyakorlas:has(+a:hover)>button{
+    color: red;
+}
+
+tr:has(>td[rowspan]):hover>td, tr:has(>td[rowspan]):hover+tr>td, tr:has(+tr:hover):has(>td[rowspan])>td, tr:hover>td{
+    background-color: aqua;
 }
