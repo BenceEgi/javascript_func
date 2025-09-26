@@ -40,6 +40,10 @@ button:not(:has(+p)){
     color: red;
 }
 
-tr:has(>td[rowspan]):hover>td, tr:has(>td[rowspan]):hover+tr>td, tr:has(+tr:hover):has(>td[rowspan])>td, tr:hover>td{
+/*tr:has(>td[rowspan]):hover>td, tr:has(>td[rowspan]):hover+tr>td, tr:has(+tr:hover):has(>td[rowspan])>td, tr:hover>td{
     background-color: aqua;
+}*/
+
+tr:not(:has(td[rowspan]))+tr:not(:has(td[rowspan])):hover>td, tr:has(td[rowspan]):hover>td, tr:has(td[rowspan]):hover+tr>td, tr:has(td[rowspan]):has(~tr:has():hover)>td{
+    background-color: blueviolet;
 }
