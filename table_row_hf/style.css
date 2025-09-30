@@ -1,0 +1,24 @@
+table, thead, tbody, tr, td {
+    border: black 2px solid;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 7px;
+}
+
+thead>tr{
+    background-color: darkgoldenrod;
+}
+
+tbody>tr{
+    background-color: lightblue;
+}
+
+tr td:nth-child(3),tr td:nth-child(1){
+    background-color: grey;
+}
+
+tr:has(td[rowspan]):has(+tr:hover)>td, tr:has(td[rowspan]):hover+tr>td ,tr:has(td[rowspan]):hover>td ,tr:not(:has(td[rowspan])):hover>td{
+    color: red;
+    font-weight: bold;
+    background-color: greenyellow;
+}
