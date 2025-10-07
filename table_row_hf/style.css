@@ -9,7 +9,7 @@ thead>tr{
     background-color: darkgoldenrod;
 }
 
-tbody>tr{
+/*tbody>tr{
     background-color: lightblue;
 }
 
@@ -17,8 +17,12 @@ tr td:nth-child(3),tr td:nth-child(1){
     background-color: grey;
 }
 
-tr:has(td[rowspan]):has(+tr:hover)>td, tr:has(td[rowspan]):hover+tr>td ,tr:has(td[rowspan]):hover>td ,tr:not(:has(td[rowspan])):hover>td{
+/*tr:has(td[rowspan]):has(+tr:hover)>td, tr:has(td[rowspan]):hover+tr>td ,tr:has(td[rowspan]):hover>td ,tr:not(:has(td[rowspan])):hover>td{
     color: red;
     font-weight: bold;
     background-color: greenyellow;
+}*/
+
+tbody tr:nth-last-child(1){
+    background-color: red;
 }
