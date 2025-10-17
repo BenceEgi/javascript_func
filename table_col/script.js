@@ -38,7 +38,7 @@ let tr = document.createElement("tr");
 table.appendChild(thead);
 table.appendChild(tbody);
 
-for (const headKeys in header){
+/*for (const headKeys in header){
     let th = document.createElement("th");
     th.innerText = header[headKeys];
     if (headKeys === "szerelmek"){th.colSpan = 2}
@@ -55,6 +55,29 @@ for (let i = 0; i < data.length; i++){
         tr.appendChild(td);
     }
     tbody.appendChild(tr);
+}*/
+
+/**
+ * @returns {void}
+ */
+function addRow(){
+
+}
+
+/**
+ * Létrehoz egy új cellát, a megadott adattal
+ * @param {string} cellType megadja a cella típusát
+ * @param {string} cellContent megadja a cella tartalmaát
+ * @param {HTMLTableRowElement} parentRow megadja az elementet amihez hozzáadjuk
+ * @returns {void}
+ */
+function createCell(cellType, cellContent, parentRow){
+    /**
+     * @type {HTMLElement}
+     */
+    let cell = document.createElement(cellType);
+    cell.innerText = cellContent;
+    parentRow.appendChild(cell);
 }
 
 document.body.appendChild(table);
