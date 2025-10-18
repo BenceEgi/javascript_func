@@ -27,57 +27,57 @@ let data = [
     },
 ];
 /**
- * @type {{szerzo: string, korszak: string, szerelmek: string}}
+ * @type {{title: string, width: number}[]}
  */
-const header = {szerzo: "Szerzo neve", korszak: "Korszak", szerelmek:"Szerelmek"};
+const header = [
+    {title: "Szerzo neve", width: 1}, 
+    {title: "Korszak", width: 1}, 
+    {title:"Szerelmek", width: 2}
+];
 
 let table = document.createElement("table");
 let tbody = document.createElement("tbody");
 let thead = document.createElement("thead");
 let tr = document.createElement("tr");
-table.appendChild(thead);
-table.appendChild(tbody);
-
-/*for (const headKeys in header){
-    let th = document.createElement("th");
-    th.innerText = header[headKeys];
-    if (headKeys === "szerelmek"){th.colSpan = 2}
-    tr.appendChild(th);
-}
-thead.appendChild(tr);
-
-for (let i = 0; i < data.length; i++){
-    tr = document.createElement("tr");
-    for (const dataKeys in data[i]){
-        let td = document.createElement("td");
-        td.innerText = data[i][dataKeys];
-        if (!data[i].szerelmek2 && dataKeys === "szerelmek1") {td.colSpan = 2}
-        tr.appendChild(td);
-    }
-    tbody.appendChild(tr);
-}*/
-
-/**
- * @returns {void}
- */
-function addRow(){
-
-}
 
 /**
  * Létrehoz egy új cellát, a megadott adattal
  * @param {string} cellType megadja a cella típusát
  * @param {string} cellContent megadja a cella tartalmaát
  * @param {HTMLTableRowElement} parentRow megadja az elementet amihez hozzáadjuk
- * @returns {void}
+ * @returns {HTMLTableCellElement} visszadaja a cellát
  */
 function createCell(cellType, cellContent, parentRow){
     /**
-     * @type {HTMLElement}
+     * @type {HTMLTableCellElement}
      */
     let cell = document.createElement(cellType);
     cell.innerText = cellContent;
     parentRow.appendChild(cell);
+    return cell;
 }
 
+/**
+ * @returns {void}
+ */
+function addRow(){
+}
+
+//Create header
+for (const j in header){
+    createCell("th", header[j].title, tr).colSpan = header[j].width;
+}
+thead.appendChild(tr);
+
+//Create table data
+for (const i in data){
+    tr =  document.createElement("tr");
+    for (const key in data[i]){
+        createCell("td", data[i][key], tr).colSpan = (data[i].szerelmek2 == null && key == "szerelmek1" ? 2 : 0);
+    }
+    tbody.appendChild(tr);
+}
+
+table.appendChild(thead);
+table.appendChild(tbody);
 document.body.appendChild(table);
