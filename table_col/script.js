@@ -81,3 +81,53 @@ for (const i in data){
 table.appendChild(thead);
 table.appendChild(tbody);
 document.body.appendChild(table);
+
+const forms = document.createElement("form");
+forms.id = "form_js";
+const title = document.createElement("h2");
+title.innerText = "Javascript form";
+forms.appendChild(title);
+const button = document.createElement("button");
+button.innerText = "Hozzáadás";
+
+
+/**
+ *
+ * @type {{id: string, text: string, type: string}[]}
+ */
+const inputs = [
+    {id:"kolto_nev", text:"Költő neve:", type:"text"},
+    {id:"korszak", text:"Korszak:", type:"text"},
+    {id:"szerelem1", text:"Szerelme:", type:"text"},
+    {id:"szerelem2", text:"Szerelme:", type:"text"}
+]
+
+for (const inputObj of inputs){createInput(inputObj.type, inputObj.text, inputObj.id, forms);}
+
+/**
+ * @param {string} inputType
+ * @param {string} labelText
+ * @param {string} id
+ * @param {HTMLFormElement} parentForms
+ * @return void
+ */
+function createInput(inputType, labelText, id, parentForms){
+    let label; let input;
+    label = document.createElement("label");
+    label.htmlFor = id;
+    label.innerText = labelText;
+
+    input = document.createElement("input");
+    input.type = inputType;
+    input.id = id;
+    input.name = id;
+
+    parentForms.appendChild(label);
+    parentForms.appendChild(document.createElement("br"));
+    parentForms.appendChild(input);
+    parentForms.appendChild(document.createElement("br"));
+    parentForms.appendChild(document.createElement("br"));
+}
+
+forms.appendChild(button);
+document.body.appendChild(forms);
