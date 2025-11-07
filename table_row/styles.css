@@ -47,3 +47,6 @@ button:not(:has(+p)){
 tr:not(:has(td[rowspan]))+tr:not(:has(td[rowspan])):hover>td, tr:has(td[rowspan]):hover>td, tr:has(td[rowspan]):hover+tr>td, tr:has(td[rowspan]):has(~tr:has():hover)>td{
     background-color: blueviolet;
 }
+.marked{
+    color: blue;
+}
