@@ -48,19 +48,10 @@ let tr = document.createElement("tr");
  * @returns {HTMLTableCellElement} visszadaja a cellát
  */
 function createCell(cellType, cellContent, parentRow){
-    /**
-     * @type {HTMLTableCellElement}
-     */
     let cell = document.createElement(cellType);
     cell.innerText = cellContent;
     parentRow.appendChild(cell);
     return cell;
-}
-
-/**
- * @returns {void}
- */
-function addRow(){
 }
 
 //Create header
@@ -77,11 +68,11 @@ for (const i in data){
     }
     tbody.appendChild(tr);
 }
-
 table.appendChild(thead);
 table.appendChild(tbody);
 document.body.appendChild(table);
 
+// --- CREATE FORMS --- //
 const forms = document.createElement("form");
 forms.id = "form_js";
 const title = document.createElement("h2");
@@ -92,7 +83,6 @@ button.innerText = "Hozzáadás";
 
 
 /**
- *
  * @type {{id: string, text: string, type: string}[]}
  */
 const inputs = [
@@ -102,7 +92,10 @@ const inputs = [
     {id:"szerelem2", text:"Szerelme:", type:"text"}
 ]
 
-for (const inputObj of inputs){createInput(inputObj.type, inputObj.text, inputObj.id, forms);}
+// Create input fields
+for (const inputObj of inputs)
+    {createInput(inputObj.type, inputObj.text, inputObj.id, forms);}
+forms.appendChild(button);
 
 /**
  * @param {string} inputType
@@ -129,5 +122,4 @@ function createInput(inputType, labelText, id, parentForms){
     parentForms.appendChild(document.createElement("br"));
 }
 
-forms.appendChild(button);
 document.body.appendChild(forms);
