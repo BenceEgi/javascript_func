@@ -1,6 +1,6 @@
 /**
-     * @type {{nationality: string, name: string, title: string, name2: string?, title2: string?}}
-     */
+* @type {{nationality: string, name: string, title: string, name2: string?, title2: string?}}
+*/
 const arr = [
     {
         nationality: "Orosz",
@@ -49,6 +49,7 @@ let tr2;
 for (const j in arr){
     tr1 = document.createElement("tr");
     tr2 = document.createElement("tr");
+    // --- to method --- 1
     for (const k in arr[j]){
         td = document.createElement("td");
         td.innerText = arr[j][k];
@@ -101,9 +102,11 @@ addEventListener("submit", (event) => {
     let tr = document.createElement("tr");
     let tr2 = document.createElement("tr");
     let td;
+    // --- To method --- 1 createRowFromObj
     for (const i in dataStructTemplate){
         if (dataStructTemplate.name2 && dataStructTemplate.title2 && (i === "name2" || i === "title2")){
            console.log(i);
+           // --- to method --- 2 - createCell
            td = document.createElement("td");
            td.innerText = dataStructTemplate[i];
            tr2.appendChild(td);
