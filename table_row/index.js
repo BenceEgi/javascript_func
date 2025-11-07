@@ -33,6 +33,7 @@ const fejlec = ["Nemzetiseg", "Szerző", "Mű"]
 const table = document.createElement("table");
 const thead = document.createElement("thead");
 const tbody = document.createElement("tbody");
+tbody.setAttribute("id", "tb");
 let tr = document.createElement("tr");
 
 for (const i of fejlec){
@@ -92,23 +93,31 @@ addEventListener("submit", (event) => {
         nationality: inputs[0].value,
         name: inputs[1].value,
         title: inputs[2].value,
-        name2: inputs[3].value,
-        title2: inputs[4].value
+        name2: !inputs[3].value ? null : inputs[3].value,
+        title2: !inputs[4].value ? null : inputs[4].value,
     };
-    const tr = document.createElement("tr");
+
+    const tbody = document.getElementById("tb");
+    let tr = document.createElement("tr");
+    let tr2 = document.createElement("tr");
     let td;
-    if (dataStructTemplate.name2){
-        const tr2 = document.createElement("tr");
-    }
     for (const i in dataStructTemplate){
-        td = document.createElement("td");
-        td.innerText = dataStructTemplate[i];
-        if (dataStructTemplate.name2 && (i === "name2" || i === "title2")){
-            tr2.appendChild(td);
+        if (dataStructTemplate.name2 && dataStructTemplate.title2 && (i === "name2" || i === "title2")){
+           console.log(i);
+           td = document.createElement("td");
+           td.innerText = dataStructTemplate[i];
+           tr2.appendChild(td);
         }
-        else{
-            tr.appendChild(td);
+        else if (i != "name2" && i != "title2"){
+           td = document.createElement("td");
+           td.innerText = dataStructTemplate[i];
+           if (dataStructTemplate.name2 && dataStructTemplate.title2 && (i === "nationality")){td.rowSpan = 2}
+           tr.appendChild(td);
         }
+    }
+    tbody.appendChild(tr);
+    if (tr2.querySelector("td")){
+        tbody.appendChild(tr2)
     }
 })
 
