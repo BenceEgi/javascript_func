@@ -1,5 +1,5 @@
 /**
-* @type {{nationality: string, name: string, title: string, name2: string?, title2: string?}}
+* @type {{nationality: string, name: string, title: string, name2: string?, title2: string?}[]}
 */
 const arr = [
     {
@@ -27,7 +27,6 @@ const arr = [
         title: "A fizikusok",
     },
 ]
-
 const fejlec = ["Nemzetiseg", "Szerző", "Mű"]
 
 const table = document.createElement("table");
@@ -36,6 +35,7 @@ const tbody = document.createElement("tbody");
 tbody.setAttribute("id", "tb");
 let tr = document.createElement("tr");
 
+// Create header
 for (const i of fejlec){
     let th = document.createElement("th");
     th.innerText = i;
@@ -43,27 +43,45 @@ for (const i of fejlec){
 }
 thead.appendChild(tr);
 
-let td;
-let tr1;
-let tr2;
-for (const j in arr){
-    tr1 = document.createElement("tr");
-    tr2 = document.createElement("tr");
-    // --- to method --- 1
-    for (const k in arr[j]){
-        td = document.createElement("td");
-        td.innerText = arr[j][k];
-        if (arr[j].name2 && k == "nationality") {td.rowSpan = 2};
-        if (arr[j].name2 && (k === "name2" || k === "title2")){
-            tr2.appendChild(td);
+//Add to table
+table.appendChild(thead);
+table.appendChild(tbody);
+document.body.appendChild(table);
+
+/**
+ * renders a table from the given array
+ * @param data {{nationality: string, name: string, title: string, name2: string?, title2: string?}[]}
+ */
+function renderTableBody(data){
+    const tbody = document.getElementById("tb");// Get tbody with "tb" id
+    tbody.innerHTML = "";
+    let td; // trs and td declaration
+    let tr; let tr2;
+    // Generate table
+    for (const i in data){
+        tr = document.createElement("tr");
+        tr2 = document.createElement("tr");
+        for (const j in data[i]){
+            if (data[i].name2 && data[i].title2 && (j === "name2" || j === "title2")){
+                console.log(j);
+                td = document.createElement("td");
+                td.innerText = data[i][j];
+                tr2.appendChild(td);
+            }
+            else if (j !== "name2" && j !== "title2"){
+                td = document.createElement("td");
+                td.innerText = data[i][j];
+                if (data[i].name2 && data[i].title2 && (j === "nationality")){td.rowSpan = 2}
+                tr.appendChild(td);
+            }
         }
-        else{tr1.appendChild(td)}
-    }
-    tbody.appendChild(tr1);
-    if (tr2.querySelector("td")){
-        tbody.appendChild(tr2);
+        tbody.appendChild(tr);
+        if (tr2.querySelector("td")){
+            tbody.appendChild(tr2);
+        }
     }
 }
+
 
 addEventListener("click", (event) => {
     /**
@@ -90,40 +108,16 @@ addEventListener("submit", (event) => {
     /**
      * @type {{nationality: string, name: string, title: string, name2: string, title2: string?}}
      */
-    const dataStructTemplate = {
+    const dataStruct = {
         nationality: inputs[0].value,
         name: inputs[1].value,
         title: inputs[2].value,
         name2: !inputs[3].value ? null : inputs[3].value,
         title2: !inputs[4].value ? null : inputs[4].value,
     };
-
-    const tbody = document.getElementById("tb");
-    let tr = document.createElement("tr");
-    let tr2 = document.createElement("tr");
-    let td;
-    // --- To method --- 1 createRowFromObj
-    for (const i in dataStructTemplate){
-        if (dataStructTemplate.name2 && dataStructTemplate.title2 && (i === "name2" || i === "title2")){
-           console.log(i);
-           // --- to method --- 2 - createCell
-           td = document.createElement("td");
-           td.innerText = dataStructTemplate[i];
-           tr2.appendChild(td);
-        }
-        else if (i != "name2" && i != "title2"){
-           td = document.createElement("td");
-           td.innerText = dataStructTemplate[i];
-           if (dataStructTemplate.name2 && dataStructTemplate.title2 && (i === "nationality")){td.rowSpan = 2}
-           tr.appendChild(td);
-        }
-    }
-    tbody.appendChild(tr);
-    if (tr2.querySelector("td")){
-        tbody.appendChild(tr2)
-    }
+    arr.push(dataStruct);
+    renderTableBody(arr)
 })
 
-table.appendChild(thead);
-table.appendChild(tbody);
-document.body.appendChild(table);
+// Render table
+renderTableBody(arr);
