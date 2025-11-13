@@ -55,7 +55,7 @@ document.body.appendChild(table);
 function renderTableBody(data){
     const tbody = document.getElementById("tb");// Get tbody with "tb" id
     tbody.innerHTML = "";
-    let td; // trs and td declaration
+    let td;
     let tr; let tr2;
     // Generate table
     for (const i in data){
@@ -74,6 +74,24 @@ function renderTableBody(data){
                 if (data[i].name2 && data[i].title2 && (j === "nationality")){td.rowSpan = 2}
                 tr.appendChild(td);
             }
+            td.addEventListener("click", (event) => {
+                /**
+                 * @type {HTMLTableCellElement}
+                 */
+                const element = event.target;
+                /**
+                 *
+                 * @type {HTMLTableRowElement}
+                 */
+                const parentTrElement = element.parentElement;
+                const parentParentElement = parentTrElement.parentElement;
+
+                const selectedElement = parentParentElement.querySelector(".marked");
+                if (selectedElement != null){
+                    selectedElement.classList.remove("marked");
+                }
+                parentTrElement.classList.add("marked");
+            })
         }
         tbody.appendChild(tr);
         if (tr2.querySelector("td")){
@@ -82,14 +100,6 @@ function renderTableBody(data){
     }
 }
 
-
-addEventListener("click", (event) => {
-    /**
-     * @type {HTMLTableColElement}
-     */
-    const element = event.target;
-    element.classList.add("marked")
-})
 
 /**
  * @type {HTMLFormElement}
