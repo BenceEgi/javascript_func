@@ -50,3 +50,7 @@ tr:not(:has(td[rowspan]))+tr:not(:has(td[rowspan])):hover>td, tr:has(td[rowspan]
 .marked{
     color: blue;
 }
+
+.error{
+    color: red;
+}
