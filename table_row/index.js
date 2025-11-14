@@ -83,14 +83,13 @@ function renderTableBody(data){
                  *
                  * @type {HTMLTableRowElement}
                  */
-                const parentTrElement = element.parentElement;
-                const parentParentElement = parentTrElement.parentElement;
+                const parentParentElement = element.parentElement.parentElement;
 
                 const selectedElement = parentParentElement.querySelector(".marked");
                 if (selectedElement != null){
                     selectedElement.classList.remove("marked");
                 }
-                parentTrElement.classList.add("marked");
+                element.classList.add("marked");
             })
         }
         tbody.appendChild(tr);
