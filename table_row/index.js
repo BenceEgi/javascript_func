@@ -1,5 +1,4 @@
 // DATA ---------------------------------------------------
-
 /**
  * @type {TableObj}
  */
@@ -43,43 +42,11 @@ const inputs = [
 ]
 
 // RENDER ---------------------------------------------------
-
 // --- Create Table ---
-// Create HTMLTableElements
-const table = document.createElement("table");
-const tbody = document.createElement("tbody");
-tbody.setAttribute("id", "tb");
-table.appendChild(tbody);
-document.body.appendChild(table);
-
-// Render table
-GenerateHeader(table, tableObj.header);
+generateTable("tb", tableObj.header);
 renderTableBody(tableObj.data);
 
 // --- Create Forms ---
-// Create HTMLFromElements
-const form = document.createElement("form");
-const h2 = document.createElement("h2");
-h2.innerText = "Js form";
-form.setAttribute("id", "jsForms")
-form.appendChild(h2);
-document.body.appendChild(form);
-
 // Render form
-renderForm(form, inputs);
-
-// Add (AddRow) Event to form
-/**
- * @type {HTMLFormElement}
- */
-const formJS = document.getElementById("jsForms");
-formJS.addEventListener("submit", (event) => {AddRow(tableObj, event)})
-
-const eventHandler = (array) => {
-
-    return (e) => {
-        //sdasdsad
-    }
-}
-
-addEventListener('asdsad', eventHandler(array))
+const formJs = renderForm(inputs, "jsForms");
+formJs.addEventListener("submit", (event) => {AddRow(tableObj, event)}) // Add (AddRow) Event to form

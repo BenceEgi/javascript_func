@@ -27,7 +27,7 @@ function Marked(event){
 }
 
 /**
- * Adds row to table
+ * Adds a new row to table
  * @param {TableObj} tableObj
  * @param {Event} event
  */
@@ -41,6 +41,12 @@ function AddRow(tableObj, event){
      * @type {HTMLInputElement[]}
      */
     const inputs = element.querySelectorAll("input");
+
+    // Validation and error message handling
+    if (!validateFields(inputs[0], inputs[1], inputs[2])) return;
+    const spans = element.querySelectorAll(".error");
+    for (const span of spans){span.innerText = "";}
+
     /**
      * @type {CountryWriters}
      */
@@ -48,8 +54,8 @@ function AddRow(tableObj, event){
         nationality: inputs[0].value,
         name: inputs[1].value,
         title: inputs[2].value,
-        name2: !inputs[3].value ? null : inputs[3].value,
-        title2: !inputs[4].value ? null : inputs[4].value,
+        name2: !inputs[3].value ? undefined : inputs[3].value,
+        title2: !inputs[4].value ? undefined : inputs[4].value,
     };
     tableObj.data.push(dataStruct);
     renderTableBody(tableObj.data)
@@ -58,22 +64,29 @@ function AddRow(tableObj, event){
 // --- Form Functions ---
 /**
  * Render out input field to form
- * @param {HTMLFormElement} form 
- * @param {InputData} inputData
+ * @param {InputData[]} inputData
+ * @param {string} formId
+ * @return {HTMLFormElement}
  */
-function renderForm(form, inputData){
+function renderForm(inputData, formId){
+    const form = document.createElement("form");
     const div = document.createElement("div");
-    const span = document.createElement("span");
-    span.classList.add("error");
-    div.appendChild(span);
+
+    form.setAttribute("id", formId);
+
     for (let i = 0; i < inputData.length; i++)
     {
+        let span = document.createElement("span");
+        span.classList.add("error");
+        div.appendChild(span);
+        div.appendChild(document.createElement("br"));
         createInput(div, inputData[i])
     }
+
     const button = document.createElement("button");
     button.innerText = "Hozzáadás"
-    div.appendChild(button);
-    form.appendChild(div);
+    div.appendChild(button); form.appendChild(div); document.body.appendChild(form);
+    return form;
 }
 
 /**
@@ -89,21 +102,60 @@ function createInput(div, inputData){
     const input = document.createElement("input");
     input.id = inputData.id;
     input.type = inputData.type;
-    input.name = inputData.name;
+    input.name = inputData.id;
 
     div.appendChild(label);
     div.appendChild(document.createElement("br"));
     div.appendChild(input);
     div.appendChild(document.createElement("br"));
-    div.appendChild(document.createElement("br"));
 }
 
-
-function validateFields(){
+/**
+ * Validates 3 fields
+ * @param {HTMLInputElement} nemzetisegField
+ * @param {HTMLInputElement} szerzoField
+ * @param {HTMLInputElement} muField
+ * @return {boolean}
+ */
+function validateFields(nemzetisegField, szerzoField, muField){
     let validFlag = true;
+    if (!validateField(muField, "A mű mezőt kötelező kitölteni")) validFlag = false;
+    if (!validateField(szerzoField, "A szerző mezőt kötelező kitölteni")) validFlag = false;
+    if (!validateField(nemzetisegField, "A nemzetiség mezőt kötelező kitölteni")) validFlag = false;
+    return validFlag;
+}
+
+/**
+ * Validates one field, and put out the error message into the parent span
+ * @param {HTMLInputElement} htmlInputField
+ * @param {string} errorMessage
+ */
+function validateField(htmlInputField, errorMessage){
+    let validFlag = true;
+    if (!htmlInputField.value) {
+        validFlag = false;
+        let span = htmlInputField.parentElement.querySelector(".error")
+        span.innerText = errorMessage;
+    }
+    return validFlag;
 }
 
 // --- Table Functions ---
+
+/**
+ * Generates the table and adds the headers
+ * @param {string} tbodyId
+ * @param {string[]} headerArr
+ */
+function generateTable(tbodyId, headerArr){
+    const table = document.createElement("table");
+    const tbody = document.createElement("tbody");
+    GenerateHeader(table, headerArr);
+    tbody.setAttribute("id", tbodyId);
+    table.appendChild(tbody);
+    document.body.appendChild(table);
+}
+
 /**
  * Renders a table from the given array
  * @param data {CountryWriters[]}
