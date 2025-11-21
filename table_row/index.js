@@ -48,5 +48,7 @@ renderTableBody(tableObj.data);
 
 // --- Create Forms ---
 // Render form
+const formHtml = document.getElementById("htmlform");
+formHtml.addEventListener("submit", AddRowToHTML)
 const formJs = renderForm(inputs, "jsForms");
-formJs.addEventListener("submit", (event) => {AddRow(tableObj, event)}) // Add (AddRow) Event to form
+formJs.addEventListener("submit", (event) => {AddRowToJs(tableObj, event)}) // Add (AddRow) Event to form

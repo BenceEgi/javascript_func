@@ -27,11 +27,11 @@ function Marked(event){
 }
 
 /**
- * Adds a new row to table
+ * Adds a new row to JS table
  * @param {TableObj} tableObj
  * @param {Event} event
  */
-function AddRow(tableObj, event){
+function AddRowToJs(tableObj, event){
     event.preventDefault();
     /**
      * @type {HTMLFormElement}
@@ -60,6 +60,42 @@ function AddRow(tableObj, event){
     tableObj.data.push(dataStruct);
     renderTableBody(tableObj.data)
 }
+
+/**
+ * Adds a new row to HTML table
+ * @param {TableObj} tableObj
+ * @param {Event} event
+ */
+function AddRowToHTML(event){
+    event.preventDefault();
+    /**
+     * @type {HTMLFormElement}
+     */
+    const element = event.target;
+    /**
+     * @type {HTMLInputElement[]}
+     */
+    const inputs = element.querySelectorAll("input");
+
+    // Validation and error message handling
+    if (!validateFields(inputs[0], inputs[1], inputs[2])) return;
+    const spans = element.querySelectorAll(".error");
+    for (const span of spans){span.innerText = "";}
+
+    /**
+     * @type {CountryWriters[]}
+     */
+    const dataStruct = [{
+        nationality: inputs[0].value,
+        name: inputs[1].value,
+        title: inputs[2].value,
+        name2: !inputs[3].value ? undefined : inputs[3].value,
+        title2: !inputs[4].value ? undefined : inputs[4].value,
+    }];
+    const table = document.getElementById("htmlTb");
+    AddRow(dataStruct, table, 0)
+}
+
 
 // --- Form Functions ---
 /**
@@ -164,26 +200,48 @@ function generateTable(tbodyId, headerArr){
 function renderTableBody(data){
     const tbody = document.getElementById("tb");// Get tbody with "tb" id
     tbody.innerHTML = "";
-    let td; let tr; let tr2;
     // Generate table
     for (const i in data){
-        tr = document.createElement("tr");
-        tr2 = document.createElement("tr");
-        for (const j in data[i]){
-            if (data[i].name2 && data[i].title2 && (j === "name2" || j === "title2")){
-                td = createTableCell("td", data[i][j], tr2);
-            }
-            else if (j !== "name2" && j !== "title2"){
-                td = createTableCell("td", data[i][j], tr);
-                if (data[i].name2 && data[i].title2 && (j === "nationality")) td.rowSpan = 2;
-            }
-            td.addEventListener("click", Marked)
+        AddRow(data, tbody, i);
+    }
+}
+
+/**
+ * Create table rows from the given data
+ * @param {CountryWriters} data
+ * @param {HTMLTableRowElement} tr
+ * @param {HTMLTableRowElement} tr2
+ */
+function GenerateRows(data, tr, tr2){
+    let td;
+    for (const j in data){
+        if (data.name2 && data.title2 && (j === "name2" || j === "title2")){
+            td = createTableCell("td", data[j], tr2);
         }
-        // Add to table
-        tbody.appendChild(tr);
-        if (tr2.querySelector("td")){
-            tbody.appendChild(tr2);
+        else if (j !== "name2" && j !== "title2"){
+            td = createTableCell("td", data[j], tr);
+            if (data.name2 && data.title2 && (j === "nationality")) td.rowSpan = 2;
         }
+        td.addEventListener("click", Marked)
+    }
+}
+
+/**
+ * Add rows to tbody
+ * @param {CountryWriters[]} data
+ * @param {HTMLElement} tbody
+ * @param {number} index
+ */
+function AddRow(data, tbody, index){
+    let tr; let tr2;
+    tr = document.createElement("tr");
+    tr2 = document.createElement("tr");
+    // Create rows
+    GenerateRows(data[index], tr, tr2);
+    // Add to table
+    tbody.appendChild(tr);
+    if (tr2.querySelector("td")){
+        tbody.appendChild(tr2);
     }
 }
 

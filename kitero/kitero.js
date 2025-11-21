@@ -1,4 +1,5 @@
 const htmlDropdown = document.getElementById('htmldropdown'); // elkérjük a htmldropdown id-jú elemet
+createOtherDivForSelect(htmlDropdown.parentElement);
 hideBasedOnSelected(htmlDropdown); // alapértelmezett értéken megnézzük mi jelenjen meg
 htmlDropdown.addEventListener('change', changeDropdownList) // hozzáadunk egy eventListenert
 
@@ -113,9 +114,6 @@ function hideBasedOnCheckbox(checkbox){
  */
 function changeDropdownList(e){
     const element = e.target;
-    const parentElement = element.parentElement;
-
-    if (element.value == "egyeb" && !parentElement.querySelector("#egyeb")) createOtherDivForSelect(parentElement);
     hideBasedOnSelected(element);
 }
 
