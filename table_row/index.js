@@ -44,7 +44,7 @@ const inputs = [
 // RENDER ---------------------------------------------------
 // --- Create Table ---
 generateTable("tb", tableObj.header);
-renderTableBody(tableObj.data);
+renderTableBody(tableObj.data, "tb");
 
 // --- Create Forms ---
 // Render form

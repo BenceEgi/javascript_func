@@ -158,7 +158,8 @@ function generateTable(tbodyId, headerArr){
 
 /**
  * Renders a table from the given array
- * @param data {CountryWriters[]}
+ * @param {CountryWriters[]} data
+ * @param {string} tbodyId
  */
 function renderTableBody(data){
     const tbody = document.getElementById("tb");// Get tbody with "tb" id
